@@ -46,6 +46,42 @@
         </div>
     </section>
 
+    <section class="price-sentiment">
+        <div class="container">
+            <h2>Community Price Sentiment</h2>
+            <div id="loginStatus" class="login-status">
+                <button id="googleLogin" class="google-login-btn">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+                <div id="userInfo" class="user-info" style="display: none;">
+                    <span id="userName"></span>
+                    <button id="logoutBtn">Logout</button>
+                </div>
+            </div>
+            <div class="vote-container">
+                <div class="vote-stats">
+                    <div class="bullish">
+                        <i class="fas fa-arrow-up"></i>
+                        <span id="bullishCount">0</span>
+                    </div>
+                    <div class="bearish">
+                        <i class="fas fa-arrow-down"></i>
+                        <span id="bearishCount">0</span>
+                    </div>
+                </div>
+                <div class="vote-buttons" id="voteButtons" style="display: none;">
+                    <button id="voteUp" class="vote-btn bullish">
+                        <i class="fas fa-arrow-up"></i> Bullish
+                    </button>
+                    <button id="voteDown" class="vote-btn bearish">
+                        <i class="fas fa-arrow-down"></i> Bearish
+                    </button>
+                </div>
+                <p id="voteStatus" class="vote-status"></p>
+            </div>
+        </div>
+    </section>
+
     <section class="market-stats">
         <div class="container">
             <h2>Trump Coin Market Performance</h2>
@@ -195,6 +231,104 @@
 
     // 每10秒更新一次数据
     setInterval(updateTokenData, 10000);
+    </script>
+
+    <script type="module">
+        // Import Firebase
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js';
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js';
+        import { getFirestore, doc, getDoc, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js';
+
+        // Firebase 配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyDthSZbelhhb-IGMLoKL2BBtPeKWNf4VGg",
+            authDomain: "trump-coin-99999.firebaseapp.com",
+            projectId: "trump-coin-99999",
+            storageBucket: "trump-coin-99999.firebasestorage.app",
+            messagingSenderId: "286803389630",
+            appId: "1:286803389630:web:b8b26a2db34cb8b856c2ef",
+            measurementId: "G-E97RXWH9SL"
+        };
+
+        // 初始化 Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+        const provider = new GoogleAuthProvider();
+
+        // 登录功能
+        document.getElementById('googleLogin').addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                updateUIForUser(result.user);
+            } catch (error) {
+                console.error('Login error:', error);
+            }
+        });
+
+        // 登出功能
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                updateUIForLogout();
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        });
+
+        // 投票功能
+        async function vote(type) {
+            if (!auth.currentUser) return;
+            
+            const userId = auth.currentUser.uid;
+            const today = new Date().toISOString().split('T')[0];
+            const voteRef = doc(db, 'votes', today);
+            
+            try {
+                const voteDoc = await getDoc(voteRef);
+                const data = voteDoc.exists() ? voteDoc.data() : { bullish: 0, bearish: 0, voters: {} };
+                
+                if (data.voters[userId]) {
+                    document.getElementById('voteStatus').textContent = 'You have already voted today!';
+                    return;
+                }
+                
+                data.voters[userId] = type;
+                data[type] += 1;
+                
+                await setDoc(voteRef, data);
+                updateVoteCounts(data);
+                document.getElementById('voteStatus').textContent = 'Vote recorded!';
+            } catch (error) {
+                console.error('Voting error:', error);
+            }
+        }
+
+        // UI 更新函数
+        function updateUIForUser(user) {
+            document.getElementById('googleLogin').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('userName').textContent = user.displayName;
+            document.getElementById('voteButtons').style.display = 'flex';
+        }
+
+        function updateUIForLogout() {
+            document.getElementById('googleLogin').style.display = 'block';
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('voteButtons').style.display = 'none';
+            document.getElementById('voteStatus').textContent = '';
+        }
+
+        function updateVoteCounts(data) {
+            document.getElementById('bullishCount').textContent = data.bullish;
+            document.getElementById('bearishCount').textContent = data.bearish;
+        }
+
+        // 添加投票事件监听
+        document.getElementById('voteUp').addEventListener('click', () => vote('bullish'));
+        document.getElementById('voteDown').addEventListener('click', () => vote('bearish'));
     </script>
 </body>
 </html> 

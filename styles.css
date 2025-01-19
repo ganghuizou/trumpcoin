@@ -293,4 +293,83 @@ footer {
         margin: 20px -20px 0;
         border-radius: 0;
     }
+}
+
+/* 投票系统样式 */
+.price-sentiment {
+    padding: 60px 0;
+    background: var(--white);
+}
+
+.login-status {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.google-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    background: #4285f4;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.vote-container {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.vote-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.bullish {
+    color: #4CAF50;
+}
+
+.bearish {
+    color: #f44336;
+}
+
+.vote-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.vote-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vote-btn.bullish {
+    background: #4CAF50;
+    color: white;
+}
+
+.vote-btn.bearish {
+    background: #f44336;
+    color: white;
+}
+
+.vote-status {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
 } 
