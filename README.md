@@ -1,1 +1,1 @@
-[访问我的网站](https://trumpcoin.space)
+[点击访问我的网站https://trumpcoin.space](https://trumpcoin.space)
