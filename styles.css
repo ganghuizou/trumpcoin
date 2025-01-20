@@ -91,9 +91,15 @@ h1 {
 }
 
 .feature-card i {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--primary-red);
     margin-bottom: 20px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover i {
+    transform: scale(1.1);
 }
 
 /* CTA部分 */
@@ -317,10 +323,17 @@ footer {
 
 .logo-squares {
     display: flex;
-    gap: 5px;
+    gap: 8px;
     align-items: center;
+    margin-right: 15px;
 }
 
 .logo-squares i {
     font-size: 2rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.logo-squares i:hover {
+    transform: scale(1.1);
 }
