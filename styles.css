@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 :root {
     --primary-red: #E63946;
     --primary-blue: #1D3557;
@@ -250,6 +249,7 @@ footer {
 }
 
 .chart-container {
+    position: relative;
     margin: 30px auto;
     border-radius: 10px;
     overflow: hidden;
@@ -259,10 +259,29 @@ footer {
     width: 90%;
 }
 
+.chart-container::before {
+    content: "Loading chart...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 1.2rem;
+    z-index: 1;
+}
+
 .chart-container iframe {
+    position: relative;
     width: 100%;
     height: 100%;
     border: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.chart-container iframe.loaded {
+    opacity: 1;
 }
 
 /* 数据更新动画效果 */
@@ -294,6 +313,9 @@ footer {
         margin: 20px -20px 0;
         border-radius: 0;
     }
+<<<<<<< HEAD
+} 
+=======
 }
 
 /* 投票系统样式 */
@@ -373,301 +395,5 @@ footer {
     margin-top: 15px;
     font-size: 0.9rem;
     color: #666;
-=======
-:root {
-    --primary-red: #E63946;
-    --primary-blue: #1D3557;
-    --white: #F1FAEE;
-    --gold: #FFD700;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #333;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* 头部样式 */
-header {
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
-    color: var(--white);
-    padding: 60px 0;
-    text-align: center;
-}
-
-.header-content {
-    animation: fadeIn 1s ease-in;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.logo i {
-    font-size: 2.5rem;
-    color: var(--gold);
-}
-
-h1 {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-}
-
-.subtitle {
-    font-size: 1.5rem;
-    opacity: 0.9;
-}
-
-/* 简介部分 */
-.intro {
-    padding: 80px 0;
-    background-color: var(--white);
-    text-align: center;
-}
-
-/* 特性部分 */
-.features {
-    padding: 80px 0;
-    background-color: #f8f9fa;
-}
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.feature-card {
-    padding: 30px;
-    text-align: center;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-}
-
-.feature-card i {
-    font-size: 2rem;
-    color: var(--primary-red);
-    margin-bottom: 20px;
-}
-
-/* CTA部分 */
-.cta {
-    padding: 100px 0;
-    text-align: center;
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
-    color: var(--white);
-}
-
-.cta-button {
-    margin-top: 30px;
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    background-color: var(--gold);
-    border: none;
-    border-radius: 5px;
-    color: var(--primary-blue);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.cta-button:hover {
-    transform: scale(1.05);
-}
-
-/* 页脚 */
-footer {
-    padding: 20px 0;
-    background-color: var(--primary-blue);
-    color: var(--white);
-    text-align: center;
-}
-
-/* 动画 */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
-    
-    .subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.market-stats {
-    background: var(--primary-blue);
-    color: var(--white);
-    padding: 60px 0;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.stat-card {
-    text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
-
-.highlight {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--gold);
-    margin: 10px 0;
-}
-
-.detail {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-.success-stories {
-    background: #f8f9fa;
-    padding: 80px 0;
-}
-
-.story-card {
-    text-align: center;
-    background: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    margin-top: 30px;
-}
-
-.story-highlight {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 15px 0;
-}
-
-.tokenomics {
-    padding: 80px 0;
-    background: var(--white);
-}
-
-.tokenomics-info {
-    margin-top: 30px;
-}
-
-.tokenomics-info p {
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.disclaimer {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin-top: 20px;
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .highlight {
-        font-size: 2rem;
-    }
-}
-
-/* 价格图表部分 */
-.price-chart {
-    padding: 80px 0;
-    background-color: var(--white);
-}
-
-.chart-container {
-    margin: 30px auto;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    background: #1a1a1a;
-    height: 500px;
-    width: 90%;
-}
-
-.chart-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* 数据更新动画效果 */
-@keyframes update-flash {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
-
-.update-flash {
-    animation: update-flash 1s ease;
-}
-
-.highlight {
-    transition: color 0.3s ease;
-}
-
-.highlight.price-change.positive {
-    color: #4CAF50;
-}
-
-.highlight.price-change.negative {
-    color: #f44336;
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-    .tradingview-widget-container {
-        margin: 20px -20px 0;
-        border-radius: 0;
-    }
->>>>>>> ede4ec863f540bb6a5cacb857e7308ce3b93c6dc
 } 
+>>>>>>> e531947ce5a7ccec8304d3b4f2f6fa3187d60d5d
